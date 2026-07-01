@@ -1,113 +1,137 @@
-/* Étape 2.1 : Design Visuel du SOC */
+/* =========================================
+   RÉINITIALISATION ET BASE
+   ========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
-    margin: 0;
-    padding: 20px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #e2e8f0;
-    /* Générateur de Gradients : fond bleu nuit vers noir */
-    background: linear-gradient(135deg, #0f172a 0%, #020617 100%);
+    background-color: #e2e8f0;
+    color: #334155;
+    /* On centre le portail au milieu de l'écran */
     min-height: 100vh;
-}
-
-/* Application d'une Box Shadow rouge simulant une alerte sur les conteneurs */
-header, aside, section, footer {
-    background-color: rgba(30, 41, 59, 0.7);
-    border: 1px solid #334155;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 0 15px rgba(220, 38, 38, 0.4); 
-}
-
-/* Étape 2.3 : L'alignement interne du Header (Flexbox) */
-header {
-    /* Indice CSS fourni dans les consignes */
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    justify-content: center;
+    padding: 20px;
 }
 
-header h1 {
-    margin: 0;
-    font-size: 1.8rem;
-    color: #f8fafc;
+/* =========================================
+   TYPOGRAPHIE FLUIDE (Fonction clamp)
+   ========================================= */
+h1 {
+    /* Le titre s'ajuste de 1.5rem à 2.5rem en fonction de 4vw */
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: #1e3a8a;
+    margin-bottom: 15px;
 }
 
-.indicateurs {
-    display: flex;
-    gap: 20px;
-    font-weight: bold;
+.consignes h2 {
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    margin-bottom: 10px;
 }
 
-.status-db {
-    color: #22c55e;
+.consignes p {
+    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+    line-height: 1.5;
 }
 
-/* Étape 2.2 : La Macro-Grille Bidimensionnelle (<main>) */
-main {
-    /* Conteneur principal en Grid */
+/* =========================================
+   STRUCTURE "MOBILE FIRST" (Smartphone)
+   ========================================= */
+.portal-container {
+    width: 100%;
+    max-width: 900px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    
+    /* Sur mobile, on a une seule colonne par défaut */
     display: grid;
-    /* Panneau gauche à 300px, panneau droit prend l'espace restant (1fr) */
-    grid-template-columns: 300px 1fr;
-    /* Gap de 20px entre les zones */
-    gap: 20px;
-    margin-bottom: 20px;
+    grid-template-columns: 1fr;
 }
 
-/* Styles additionnels pour le formulaire (Cheatsheet HTML/CSS) */
+/* On masque totalement l'illustration sur mobile pour la performance réseau */
+.illustration-corporate {
+    display: none;
+}
+
+.formulaire-auth {
+    padding: 30px 20px;
+}
+
 form {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    margin-top: 15px;
+    margin-top: 20px;
 }
 
-input[type="text"], select {
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #475569;
-    background-color: #1e293b;
-    color: white;
+label {
+    font-weight: bold;
+    font-size: 0.95rem;
 }
 
-input[type="submit"] {
+/* =========================================
+   ERGONOMIE TACTILE & ACCESSIBILITÉ
+   ========================================= */
+input[type="text"], 
+input[type="password"], 
+button {
+    /* Hauteur minimale de 44px imposée par les normes WCAG pour les pouces */
+    min-height: 44px;
     padding: 12px;
-    background-color: #dc2626;
+    
+    /* Police obligatoire à 1rem (16px) pour désactiver l'auto-zoom iOS Safari */
+    font-size: 1rem;
+    
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+}
+
+button {
+    background-color: #1e3a8a;
     color: white;
+    font-weight: bold;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
+    margin-top: 10px;
+    transition: background-color 0.3s;
 }
 
-input[type="submit"]:hover {
-    background-color: #b91c1c;
+button:hover {
+    background-color: #152c6b;
 }
 
-/* Styles pour le tableau (Cheatsheet HTML/CSS) */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
-    background-color: #1e293b;
-    border-radius: 5px;
-    overflow: hidden;
-}
+/* =========================================
+   MEDIA QUERIES (Adaptation pour PC/Tablette)
+   ========================================= */
+/* Dès que l'écran atteint 768px de large (Tablettes et PC) */
+@media screen and (min-width: 768px) {
+    
+    .portal-container {
+        /* On passe la grille sur 2 colonnes de taille égale */
+        grid-template-columns: 1fr 1fr;
+    }
 
-th, td {
-    padding: 15px;
-    text-align: left;
-    border-bottom: 1px solid #334155;
-}
+    /* On réaffiche la colonne d'illustration */
+    .illustration-corporate {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end; /* Pousse le texte en bas */
+        padding: 40px;
+        color: white;
+        
+        /* Ajout d'une couleur de fond simulant l'image corporate */
+        background-color: #1e3a8a;
+        /* Note: en prod, on mettrait une vraie image de fond ici via background-image */
+    }
 
-th {
-    background-color: #0f172a;
-    font-weight: bold;
-}
-
-footer {
-    text-align: center;
-    font-size: 0.9rem;
-    color: #94a3b8;
+    .formulaire-auth {
+        padding: 50px 40px; /* On aère plus le formulaire sur grand écran */
+    }
 }
