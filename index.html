@@ -1,81 +1,38 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Console SOC - Traitement des Alertes</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Portail Captif - Infratech-Guest</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header>
-        <h1>SOC Security Events</h1>
-        <div class="indicateurs">
-            <span>EPS : 1240</span>
-            <span class="status-db">Statut DB : Connecté</span>
-        </div>
-    </header>
-
-    <main>
-        <aside>
-            <h2>Filtres de recherche</h2>
-            <form action="#" method="GET">
-                <label for="ip-source">Filtrer par IP :</label>
-                <input type="text" id="ip-source" name="ip-source" placeholder="Ex: 192.168.1.1">
-                
-                <label for="criticite">Criticité :</label>
-                <select id="criticite" name="criticite">
-                    <option value="critique">Critique</option>
-                    <option value="warning">Warning</option>
-                    <option value="info">Info</option>
-                </select>
-                
-                <input type="submit" value="Appliquer les filtres">
-            </form>
+    <main class="portal-container">
+        
+        <aside class="illustration-corporate">
+            <div class="consignes">
+                <h2>Sécurité Physique Data Center</h2>
+                <p>Rappel : L'accès aux salles serveurs est strictement restreint au personnel autorisé par badge. Tout visiteur doit être accompagné.</p>
+            </div>
         </aside>
 
-        <section>
-            <h2>Événements SIEM en temps réel</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Horodatage</th>
-                        <th>ID Événement</th>
-                        <th>IP Source</th>
-                        <th>Type d'Attaque</th>
-                        <th>Action Pare-feu</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>06:12:04</td>
-                        <td>EVT-942</td>
-                        <td>185.220.101.5</td>
-                        <td>Brute Force SSH</td>
-                        <td>Bloqué</td>
-                    </tr>
-                    <tr>
-                        <td>06:15:33</td>
-                        <td>EVT-943</td>
-                        <td>45.22.19.100</td>
-                        <td>Scan de ports</td>
-                        <td>Drop</td>
-                    </tr>
-                    <tr>
-                        <td>06:18:12</td>
-                        <td>EVT-944</td>
-                        <td>192.168.10.55</td>
-                        <td>Tentative d'injection SQL</td>
-                        <td>Bloqué</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-    </main>
+        <section class="formulaire-auth">
+            <h1>Connexion Wi-Fi Invités</h1>
+            <p>Veuillez vous authentifier pour accepter la charte et accéder à Internet.</p>
 
-    <footer>
-        <p>Statut de conformité SecOps : Opérationnel et Conforme</p>
-    </footer>
+            <form action="#" method="POST">
+                <label for="identifiant">Identifiant ou Code temporaire :</label>
+                <input type="text" id="identifiant" name="identifiant" required autocomplete="username">
+
+                <label for="password">Mot de passe :</label>
+                <input type="password" id="password" name="password" required autocomplete="current-password">
+
+                <button type="submit">Accepter et se connecter</button>
+            </form>
+        </section>
+
+    </main>
 
 </body>
 </html>
